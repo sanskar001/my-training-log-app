@@ -5,22 +5,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Personal athlete training log">
   <title>Athlete Log</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter+Tight:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Lottie-style startup animation: self-drawing activity mark, pulsing ring,
+       title rise. Auto-dismisses; skipped under reduced-motion. -->
+  <div id="introSplash" class="intro" aria-hidden="true">
+    <div class="intro-stage">
+      <svg class="intro-mark" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+        <circle class="intro-ring" cx="60" cy="60" r="50" stroke="currentColor" stroke-width="2.5"/>
+        <circle class="intro-ring intro-ring-2" cx="60" cy="60" r="50" stroke="currentColor" stroke-width="2.5"/>
+        <path class="intro-pulse" d="M18 60 H42 L50 40 L62 82 L72 60 H102"
+              stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="intro-word">
+        <span class="intro-eyebrow">Project Warrior</span>
+        <span class="intro-title">Athlete Log</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decorative background pattern (fixed, non-interactive) -->
+  <div class="bg-pattern" aria-hidden="true"></div>
+
+  <!-- Inline SVG icon library (Lucide-style, dependency-free, currentColor) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+      <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </symbol>
+      <symbol id="i-plug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-10 0zM12 16v5"/>
+      </symbol>
+      <symbol id="i-activity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12h-3.5l-3 8-5-16-3 8H3"/>
+      </symbol>
+      <symbol id="i-history" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/>
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12h14"/>
+      </symbol>
+      <symbol id="i-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+      </symbol>
+      <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+      </symbol>
+      <symbol id="i-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8"/><path d="M10 12h4"/>
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6 9 17l-5-5"/>
+      </symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18.5 13.5c1.4-1.4 2.5-3 2.5-5A4 4 0 0 0 12 5.8 4 4 0 0 0 3 8.5c0 2 1.1 3.6 2.5 5l6.5 6.2Z"/>
+      </symbol>
+      <symbol id="i-gauge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 14 L15.5 9.5"/><path d="M3 17a9 9 0 1 1 18 0"/><circle cx="12" cy="14" r="1.4" fill="currentColor" stroke="none"/>
+      </symbol>
+      <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 16 9.5 10.5l4 4L20 8"/><path d="M20 12V8h-4"/>
+      </symbol>
+      <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><path d="M12 8h.01"/>
+      </symbol>
+      <!-- Sport glyphs -->
+      <symbol id="s-swim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="17" cy="7" r="2"/><path d="M3 16s2-1.5 4-1.5S9.5 16 11.5 16 14 14.5 16 14.5 18.5 16 21 16"/><path d="M5.5 13 11 9l-3-2 4.5-1"/>
+      </symbol>
+      <symbol id="s-bike" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="6" cy="16.5" r="3.2"/><circle cx="18" cy="16.5" r="3.2"/><path d="M6 16.5 10 8h3.5l4 8.5M9.5 8h4.5"/>
+      </symbol>
+      <symbol id="s-run" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="14" cy="5" r="1.8"/><path d="M9 20l2.5-4.5 2-2-1-4.5-3.5 3M12.5 13l3 1.8 1 3.7M11 8.5 14.5 7l3 1.5"/>
+      </symbol>
+      <symbol id="s-strength" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 9v6M7 7v10M17 7v10M20 9v6M7 12h10"/>
+      </symbol>
+      <symbol id="s-mobility" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="5" r="1.8"/><path d="M12 7v6m0 0-3.5 6m3.5-6 3.5 6M7 10.5l5 1 5-1"/>
+      </symbol>
+      <symbol id="s-rest" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>
+      </symbol>
+      <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+      </symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 6h16M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2m2 0v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6"/><path d="M10 11v6M14 11v6"/>
+      </symbol>
+    </defs>
+  </svg>
+
   <main class="app-shell">
     <header class="hero">
-      <div>
-        <p class="eyebrow">PROJECT WARRIOR</p>
+      <div class="hero-left">
+        <p class="eyebrow">Project Warrior</p>
         <h1>Athlete Log</h1>
         <p class="subtitle">Log the week. Lock it in. Keep moving.</p>
       </div>
-      <div id="connectionBadge" class="badge offline">Not connected</div>
+      <div id="connectionBadge" class="badge offline"><span class="badge-dot"></span>Not connected</div>
     </header>
 
     <section id="connectCard" class="card">
       <div class="section-heading">
-        <span class="icon">🔐</span>
+        <span class="icon"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-lock" xlink:href="#i-lock"/></svg></span>
         <div>
           <h2>Connect GitHub</h2>
           <p>Your training data stays in your private data repository.</p>
@@ -29,30 +125,36 @@
 
       <label for="token">Fine-grained GitHub token</label>
       <div class="input-row">
-        <input id="token" type="password" autocomplete="off" placeholder="github_pat_…">
+        <input id="token" type="password" autocomplete="off" placeholder="github_pat_… (paste your token)">
         <button id="toggleToken" class="icon-button" type="button" aria-label="Show token">Show</button>
         <button id="copyToken" class="icon-button" type="button">Copy</button>
       </div>
-      <p class="hint">The token is kept only in this browser tab. Never paste it into GitHub files or send it to anyone.</p>
+      <p class="hint">The token is kept only in this browser tab and is cleared when you close it. Never paste it into GitHub files or send it to anyone.</p>
 
       <div class="repo-grid">
-        <label>
+        <label class="locked">
           GitHub username
-          <input id="username" value="sanskar001" autocomplete="off">
+          <input id="username" value="sanskar001" autocomplete="off" placeholder="your-github-username" disabled aria-describedby="repoLockNote">
         </label>
-        <label>
+        <label class="locked">
           Private data repository
-          <input id="repo" value="my-training-log-data" autocomplete="off">
+          <input id="repo" value="my-training-log-data" autocomplete="off" placeholder="my-training-log-data" disabled aria-describedby="repoLockNote">
         </label>
       </div>
+      <p id="repoLockNote" class="hint">Username and repository are fixed for this app. They stay locked so they can't be changed by accident.</p>
 
-      <button id="connectBtn" class="primary" type="button">🔗 Connect GitHub</button>
+      <button id="connectBtn" class="primary" type="button"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-plug" xlink:href="#i-plug"/></svg>Connect GitHub</button>
       <p id="connectStatus" class="status" aria-live="polite"></p>
     </section>
 
-    <section id="logCard" class="card hidden">
+    <nav id="tabBar" class="tab-bar hidden" role="tablist" aria-label="Sections">
+      <button id="tabLog" class="tab active" role="tab" aria-selected="true" aria-controls="logCard" type="button"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-activity" xlink:href="#i-activity"/></svg>Log</button>
+      <button id="tabBrowse" class="tab" role="tab" aria-selected="false" aria-controls="historyCard" type="button"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-history" xlink:href="#i-history"/></svg>History</button>
+    </nav>
+
+    <section id="logCard" class="card hidden" role="tabpanel" aria-labelledby="tabLog">
       <div class="section-heading">
-        <span class="icon">🏁</span>
+        <span class="icon"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-activity" xlink:href="#i-activity"/></svg></span>
         <div>
           <h2>Weekly Training Log</h2>
           <p>Fill only what you actually trained. Optional fields can stay empty.</p>
@@ -62,55 +164,56 @@
       <div class="form-grid">
         <label>
           Week number
-          <input id="weekNumber" type="number" min="1" step="1" placeholder="1">
+          <input id="weekNumber" type="number" min="1" step="1" placeholder="e.g. 1">
         </label>
         <label>
           Week start
-          <input id="startDate" type="date">
+          <input id="startDate" type="date" placeholder="yyyy-mm-dd">
         </label>
         <label>
           Week end
-          <input id="endDate" type="date">
+          <input id="endDate" type="date" placeholder="yyyy-mm-dd">
         </label>
         <label>
-          Overall RPE (1–10)
-          <input id="weeklyRpe" type="number" min="1" max="10" step="1" placeholder="7">
+          <span class="label-row">
+            Overall RPE (1–10)
+            <button class="info-dot" type="button" aria-label="What is RPE?" data-rpe-info><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-info" xlink:href="#i-info"/></svg></button>
+          </span>
+          <input id="weeklyRpe" type="number" min="1" max="10" step="1" placeholder="e.g. 7">
         </label>
       </div>
 
       <div class="sessions-head">
         <h3>Sessions</h3>
-        <button id="addSession" class="secondary" type="button">＋ Add Session</button>
+        <button id="addSession" class="secondary" type="button"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-plus" xlink:href="#i-plus"/></svg>Add Session</button>
       </div>
       <div id="sessions"></div>
 
       <div class="actions">
-        <button id="saveBtn" class="primary" type="button">🏁 Lock In This Week</button>
-        <button id="downloadBtn" class="secondary" type="button">⬇ Take Data With Me</button>
-        <button id="resetBtn" class="ghost" type="button">↻ Start Over</button>
+        <button id="saveBtn" class="primary" type="button"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-check" xlink:href="#i-check"/></svg>Save Week</button>
       </div>
 
       <p id="saveStatus" class="status" aria-live="polite"></p>
       <div id="lastSaved" class="saved-note hidden"></div>
     </section>
 
-    <section id="historyCard" class="card hidden">
+    <section id="historyCard" class="card hidden" role="tabpanel" aria-labelledby="tabBrowse" hidden>
       <div class="section-heading">
-        <span class="icon">📚</span>
+        <span class="icon"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-history" xlink:href="#i-history"/></svg></span>
         <div>
-          <h2>History</h2>
-          <p>Find training by week, month, or date range.</p>
+          <h2>History &amp; Browse</h2>
+          <p>Find training by week, month, date range, or sport.</p>
         </div>
       </div>
 
       <div class="filter-grid">
         <label>
           From
-          <input id="filterFrom" type="date">
+          <input id="filterFrom" type="date" placeholder="yyyy-mm-dd">
         </label>
         <label>
           To
-          <input id="filterTo" type="date">
+          <input id="filterTo" type="date" placeholder="yyyy-mm-dd">
         </label>
         <label>
           Week number
@@ -118,53 +221,108 @@
         </label>
         <label>
           Month
-          <input id="filterMonth" type="month">
+          <input id="filterMonth" type="month" placeholder="yyyy-mm">
+        </label>
+        <label>
+          Sport
+          <select id="filterSport">
+            <option value="">All sports</option>
+            <option value="swim">Swim</option>
+            <option value="bike">Bike</option>
+            <option value="run">Run</option>
+            <option value="strength">Strength</option>
+            <option value="mobility">Mobility</option>
+            <option value="rest">Rest</option>
+          </select>
+        </label>
+        <label>
+          View
+          <select id="viewMode">
+            <option value="weeks">Weeks</option>
+            <option value="sessions">Sessions</option>
+          </select>
         </label>
       </div>
       <div class="filter-actions">
-        <button id="filterBtn" class="secondary" type="button">🔎 Find</button>
+        <button id="filterBtn" class="secondary" type="button"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-search" xlink:href="#i-search"/></svg>Find</button>
+        <button id="exportFilteredBtn" class="secondary" type="button"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-download" xlink:href="#i-download"/></svg>Download These</button>
+        <button id="downloadBtn" class="secondary" type="button"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-archive" xlink:href="#i-archive"/></svg>Full Backup</button>
         <button id="clearFilterBtn" class="ghost" type="button">Clear</button>
       </div>
+      <div id="browseSummary" class="browse-summary hidden"></div>
+      <div id="charts" class="charts"></div>
       <div id="historyResults"></div>
     </section>
   </main>
 
   <dialog id="modal">
     <div class="modal-content">
-      <div id="modalIcon" class="modal-icon">✓</div>
+      <div id="modalIcon" class="modal-icon ok"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-check" xlink:href="#i-check"/></svg></div>
       <h2 id="modalTitle">Done</h2>
       <p id="modalMessage"></p>
       <button id="modalClose" class="primary" type="button">Continue</button>
     </div>
   </dialog>
 
+  <dialog id="confirmModal">
+    <div class="modal-content">
+      <div class="modal-icon danger"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-trash" xlink:href="#i-trash"/></svg></div>
+      <h2 id="confirmTitle">Delete week?</h2>
+      <p id="confirmMessage"></p>
+      <div class="modal-actions">
+        <button id="confirmCancel" class="secondary" type="button">Cancel</button>
+        <button id="confirmDelete" class="danger-btn" type="button"><svg class="ic"><use href="#i-trash" xlink:href="#i-trash"/></svg>Delete week</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="rpeModal">
+    <div class="modal-content rpe-info">
+      <div class="modal-icon"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-gauge" xlink:href="#i-gauge"/></svg></div>
+      <h2>RPE — Rate of Perceived Exertion</h2>
+      <p class="rpe-sub">How hard the effort felt, 1 (easiest) to 10 (max).</p>
+      <ul class="rpe-scale">
+        <li><span class="rpe-num r-low">1–2</span><span>Very easy — recovery, barely any effort</span></li>
+        <li><span class="rpe-num r-low">3–4</span><span>Easy — comfortable, could do all day</span></li>
+        <li><span class="rpe-num r-mid">5–6</span><span>Moderate — working, can still talk</span></li>
+        <li><span class="rpe-num r-high">7–8</span><span>Hard — breathing heavy, talking is tough</span></li>
+        <li><span class="rpe-num r-max">9</span><span>Very hard — near your limit</span></li>
+        <li><span class="rpe-num r-max">10</span><span>Max — all-out, can't sustain</span></li>
+      </ul>
+      <button id="rpeClose" class="primary" type="button">Got it</button>
+    </div>
+  </dialog>
+
   <template id="sessionTemplate">
-    <article class="session-card">
+    <article class="session-card" data-type="run">
       <div class="session-top">
-        <select class="session-type" aria-label="Session type">
-          <option value="swim">🏊 Swim</option>
-          <option value="bike">🚴 Bike</option>
-          <option value="run">🏃 Run</option>
-          <option value="strength">💪 Strength</option>
-          <option value="mobility">🧘 Mobility</option>
-          <option value="rest">😴 Rest</option>
-        </select>
-        <button class="remove-session ghost" type="button" title="Remove session">✕</button>
+        <div class="type-wrap">
+          <span class="sport-badge"><svg class="ic sport-ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#s-run" xlink:href="#s-run"/></svg></span>
+          <select class="session-type" aria-label="Session type">
+            <option value="swim">Swim</option>
+            <option value="bike">Bike</option>
+            <option value="run">Run</option>
+            <option value="strength">Strength</option>
+            <option value="mobility">Mobility</option>
+            <option value="rest">Rest</option>
+          </select>
+        </div>
+        <button class="remove-session ghost" type="button" title="Remove session" aria-label="Remove session"><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-x" xlink:href="#i-x"/></svg></button>
       </div>
       <div class="form-grid compact">
-        <label>
+        <label data-field="date">
           Date
-          <input class="session-date" type="date">
+          <input class="session-date" type="date" placeholder="yyyy-mm-dd">
         </label>
-        <label>
+        <label data-field="duration">
           Duration (min)
-          <input class="session-duration" type="number" min="0" step="1">
+          <input class="session-duration" type="number" min="0" step="1" placeholder="e.g. 45">
         </label>
-        <label>
+        <label data-field="distance">
           Distance
-          <input class="session-distance" type="number" min="0" step="0.01">
+          <input class="session-distance" type="number" min="0" step="0.01" placeholder="e.g. 10">
         </label>
-        <label>
+        <label data-field="unit">
           Unit
           <select class="session-unit">
             <option value="km">km</option>
@@ -172,11 +330,51 @@
             <option value="none">—</option>
           </select>
         </label>
-        <label>
-          RPE (1–10)
-          <input class="session-rpe" type="number" min="1" max="10" step="1">
+        <label data-field="rpe">
+          <span class="label-row">
+            RPE (1–10)
+            <button class="info-dot" type="button" aria-label="What is RPE?" data-rpe-info><svg class="ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-info" xlink:href="#i-info"/></svg></button>
+          </span>
+          <input class="session-rpe" type="number" min="1" max="10" step="1" placeholder="e.g. 7">
         </label>
       </div>
+
+      <div class="hr-block">
+        <div class="hr-block-head"><svg class="ic hr-ic" xmlns:xlink="http://www.w3.org/1999/xlink"><use href="#i-heart" xlink:href="#i-heart"/></svg>Heart rate <span class="hr-opt">optional</span></div>
+        <div class="hr-grid">
+          <div class="hr-field" data-field="avgHr">
+            <span class="hr-label">Avg HR</span>
+            <div class="hr-control">
+              <input class="hr-slider session-avg-hr-slider" type="range" min="0" max="300" step="1" value="0" aria-label="Average heart rate">
+              <div class="hr-entry">
+                <input class="hr-num session-avg-hr" type="number" min="0" max="300" step="1" placeholder="—">
+                <span class="hr-unit">bpm</span>
+              </div>
+            </div>
+          </div>
+          <div class="hr-field" data-field="maxHr">
+            <span class="hr-label">Max HR</span>
+            <div class="hr-control">
+              <input class="hr-slider session-max-hr-slider" type="range" min="0" max="300" step="1" value="0" aria-label="Maximum heart rate">
+              <div class="hr-entry">
+                <input class="hr-num session-max-hr" type="number" min="0" max="300" step="1" placeholder="—">
+                <span class="hr-unit">bpm</span>
+              </div>
+            </div>
+          </div>
+          <div class="hr-field" data-field="restingHr">
+            <span class="hr-label">Resting HR</span>
+            <div class="hr-control">
+              <input class="hr-slider session-resting-hr-slider" type="range" min="0" max="300" step="1" value="0" aria-label="Resting heart rate">
+              <div class="hr-entry">
+                <input class="hr-num session-resting-hr" type="number" min="0" max="300" step="1" placeholder="—">
+                <span class="hr-unit">bpm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <label>
         Notes
         <textarea class="session-notes" rows="2" placeholder="How did it feel?"></textarea>
